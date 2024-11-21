@@ -13,15 +13,19 @@ const todoArr = [
 export const App = () => {
  
     const [todolist, setTodolist] = useState(todoArr)
-    console.log(todolist)
+
+    const removeTodo = (id) => {
+        const filteredArr = todolist.filter( todo => todo.id != id)
+        setTodolist(filteredArr)
+    }
+ 
     return (
         <>
             <h1>App component</h1>
-            <CreateTodo />
+            <CreateTodo todolist={todolist} setTodolist={setTodolist} />
             {
                 todolist.map(todo => {
-                    return <Todo title={todo.title} isComplete = {todo.isComplete} id = {todo.id} />
-
+                    return <Todo deleteTodo={removeTodo} title={todo.title} isComplete = {todo.isComplete} id = {todo.id} />
                 })
             }
         </>
